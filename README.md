@@ -1,7 +1,7 @@
-# Market-Lens 🔍
+# MarketLens 🔍
 
 ## Overview
-Market-Lens is a tool designed to analyze and visualize market data, providing insights for better decision-making in financial markets.
+MarketLens is a tool designed to analyze and visualize market data, providing insights for better decision-making in financial markets.
 
 ## Installation
 ```bash

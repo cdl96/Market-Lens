@@ -1,17 +1,213 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Welcome to Market-Lens</h1>
-        <p class="lead">Your comprehensive market analysis platform</p>
-        <hr class="my-4">
-        {% if current_user.is_authenticated %}
-            <p>View your personalized dashboard to start analyzing the market.</p>
-            <a class="btn btn-primary btn-lg" href="{{ url_for('main.dashboard') }}" role="button">Go to Dashboard</a>
-        {% else %}
-            <p>Get started by creating an account or logging in.</p>
-            <a class="btn btn-primary btn-lg" href="{{ url_for('auth.register') }}" role="button">Register</a>
-            <a class="btn btn-secondary btn-lg" href="{{ url_for('auth.login') }}" role="button">Login</a>
-        {% endif %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 py-4">
+                <h1 class="display-4 fw-bold mb-3 text-gradient">Welcome to MarketLens</h1>
+                <p class="lead mb-3">Your comprehensive market analysis platform powered by advanced analytics and real-time insights.</p>
+                
+                {% if current_user.is_authenticated %}
+                    <p class="mb-3">Ready to explore market trends and make data-driven decisions?</p>
+                    <div class="d-flex gap-3">
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary px-4 py-2 d-inline-flex align-items-center">
+                            Go to Dashboard
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                            </svg>
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="mb-3">Start your journey towards smarter market analysis today.</p>
+                    <div class="d-flex gap-3">
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-primary px-4 py-2">Get Started</a>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary px-4 py-2">Sign In</a>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 d-lg-block feature-section">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Real-time Analytics</h3>
+                        <p>Track market movements as they happen</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Market Insights</h3>
+                        <p>Deep analysis of market trends</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Smart Alerts</h3>
+                        <p>Never miss important market moves</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile Ready</h3>
+                        <p>Access anywhere, anytime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-{% endblock content %}
+</div>
 
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 3rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.text-gradient {
+    background: linear-gradient(120deg, #2b4c7e 0%, #1a365d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btn-primary {
+    background: linear-gradient(120deg, #2b4c7e 0%, #1a365d 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-outline-primary {
+    border: 2px solid #2b4c7e;
+    color: #2b4c7e;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(120deg, #2b4c7e 0%, #1a365d 100%);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.feature-section {
+    margin-top: 2rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #2b4c7e;
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .hero-section {
+        padding: 2rem 0;
+        text-align: center;
+    }
+    
+    .feature-section {
+        margin-top: 2rem;
+        display: block !important;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .d-flex {
+        justify-content: center;
+    }
+    
+    .display-4 {
+        font-size: calc(1.8rem + 1.5vw);
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 1.5rem 0;
+    }
+    
+    .feature-grid {
+        padding: 0.5rem;
+    }
+    
+    .feature-card {
+        padding: 1rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-section h1,
+.hero-section p,
+.hero-section .btn {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.hero-section p {
+    animation-delay: 0.2s;
+}
+
+.hero-section .btn {
+    animation-delay: 0.4s;
+}
+</style>
+{% endblock content %}

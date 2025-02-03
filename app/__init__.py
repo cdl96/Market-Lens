@@ -28,7 +28,11 @@ def create_app(config_class=Config):
 
     # Create database tables
     with app.app_context():
-        db.create_all()
+        try:
+            db.create_all()
+            print("Database tables created successfully!")
+        except Exception as e:
+            print(f"Error creating database tables: {e}")
 
     return app
 

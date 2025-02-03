@@ -1,31 +1,10 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <h2>Market Dashboard</h2>
-        <div class="card">
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Price</th>
-                            <th>Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for data in market_data %}
-                        <tr>
-                            <td>{{ data.symbol }}</td>
-                            <td>${{ "%.2f"|format(data.price) }}</td>
-                            <td>{{ data.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <div class="content-section">
+        <h1>Dashboard</h1>
+        <div class="dashboard-content">
+            <p>Welcome to your dashboard, {{ current_user.username }}!</p>
+            <!-- Add your dashboard content here -->
         </div>
     </div>
-</div>
-{% endblock %}
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to Market-Lens</h1>
+        <p class="lead">Your comprehensive market analysis platform</p>
+        <hr class="my-4">
+        {% if current_user.is_authenticated %}
+            <p>View your personalized dashboard to start analyzing the market.</p>
+            <a class="btn btn-primary btn-lg" href="{{ url_for('main.dashboard') }}" role="button">Go to Dashboard</a>
+        {% else %}
+            <p>Get started by creating an account or logging in.</p>
+            <a class="btn btn-primary btn-lg" href="{{ url_for('auth.register') }}" role="button">Register</a>
+            <a class="btn btn-secondary btn-lg" href="{{ url_for('auth.login') }}" role="button">Login</a>
+        {% endif %}
+    </div>
+{% endblock content %}
+

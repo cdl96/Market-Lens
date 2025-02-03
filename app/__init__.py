@@ -14,13 +14,15 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
 
+    # Initialize Flask extensions
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
-    from app.main import main
-    from app.auth import auth
-
+    # Import and register blueprints
+    from app.main.routes import main
+    from app.auth.routes import auth
+    
     app.register_blueprint(main)
     app.register_blueprint(auth)
 
@@ -29,5 +31,6 @@ def create_app(config_class=Config):
         db.create_all()
 
     return app
+
 
 

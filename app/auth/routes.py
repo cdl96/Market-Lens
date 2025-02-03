@@ -1,9 +1,11 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from app import db, bcrypt
+from app import db
 from app.models import User
-from app.auth.forms import RegistrationForm, LoginForm
-from app.auth import auth
+from app.auth.forms import LoginForm, RegistrationForm
+from datetime import datetime
+
+auth = Blueprint('auth', __name__, url_prefix='/auth') 
 
 @auth.route("/register", methods=['GET', 'POST'])
 def register():
@@ -11,8 +13,12 @@ def register():
         return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(
+            username=form.username.data,
+            email=form.email.data
+        )
+        user.set_password(form.password.data) 
+        
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
@@ -26,10 +32,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data)
+            user.update_last_login() 
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.dashboard'))
+            return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)

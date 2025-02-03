@@ -1,18 +1,23 @@
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 class Config:
     # Generate a secure secret key
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'  # In production, use environment variable
+    SECRET_KEY = os.getenv('SECRET_KEY')
     
     # Database configuration
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///market_lens.db'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Session configuration
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv('SESSION_TIMEOUT', 30)))
     
     # Other configurations
-    DEBUG = True  # Set to False in production
+    DEBUG = os.getenv('FLASK_DEBUG', 'False').lower() in ('true', '1', 't')
     WTF_CSRF_ENABLED = True
+
 

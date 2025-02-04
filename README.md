@@ -19,7 +19,7 @@ source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
 pip install -r requirements.txt
 
 # Run Application
-python3 run.py
+python run.py
 ```
 
 ## Features

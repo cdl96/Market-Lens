@@ -79,7 +79,7 @@
         </div>
     </div>
 </div>
-
+{% include 'components/chat_popup.html' %}
 <style>
 .dashboard-container {
     padding: 20px;
@@ -239,6 +239,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+const currentUserId = "{{ current_user.id if current_user.is_authenticated else 'null' }}";
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize sentiment pie chart
     const ctx = document.getElementById('sentimentPieChart').getContext('2d');

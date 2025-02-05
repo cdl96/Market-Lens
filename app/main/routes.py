@@ -36,7 +36,7 @@ def get_users():
         status = 'offline'
         if user.last_login:  
             if user.last_login >= five_minutes_ago:
-                status = user.status if user.status in ['online', 'away', 'busy'] else 'online'
+                status = user.status if user.status in ['online', 'away'] else 'online'
             elif user.last_login >= (datetime.utcnow() - timedelta(hours=24)):
                 status = 'away'
         

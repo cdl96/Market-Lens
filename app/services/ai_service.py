@@ -1,55 +1,72 @@
 import google.generativeai as genai
-from flask import current_app
-from app import db
-from app.models import Message, User
 
 class AIService:
-    def __init__(self):
+    def __init__(self, app=None):
         self.model = None
-        self.ai_user = None
-        self.initialize_ai()
+        if app:
+            self.init_app(app)
 
-    def initialize_ai(self):
+    def init_app(self, app):
         try:
-            api_key = current_app.config['GOOGLE_API_KEY']
+            api_key = app.config['GOOGLE_API_KEY']
             genai.configure(api_key=api_key)
             self.model = genai.GenerativeModel('gemini-pro')
-            
-            # Create or get AI user
-            self.ai_user = User.query.filter_by(username='AI Assistant').first()
-            if not self.ai_user:
-                self.ai_user = User(
-                    username='AI Assistant',
-                    email='ai@assistant.com',
-                    password='not_accessible'
-                )
-                db.session.add(self.ai_user)
-                db.session.commit()
-                
         except Exception as e:
-            current_app.logger.error(f"Failed to initialize AI service: {e}")
+            app.logger.error(f"Failed to initialize AI service: {e}")
             self.model = None
 
-    async def process_message(self, user_message, user_id):
+    async def get_response(self, user_message):
+        """
+        Simply get a response from Gemini AI for the given message
+        """
         if not self.model:
-            return None
+            return "AI service is not properly initialized."
 
         try:
-            # Generate AI response
             response = self.model.generate_content(user_message)
-            
-            # Create and save AI message
-            ai_message = Message(
-                sender_id=self.ai_user.id,
-                receiver_id=user_id,
-                content=response.text,
-                is_ai_message=True
-            )
-            db.session.add(ai_message)
-            db.session.commit()
-            
-            return ai_message
-            
+            return response.text
         except Exception as e:
-            current_app.logger.error(f"Error processing AI message: {e}")
-            return None
+            print(f"Error getting AI response: {e}")
+            return f"Error processing message: {str(e)}"
+
+    async def analyze_sentiment(self, text):
+        """
+        Analyze the sentiment of given text
+        """
+        if not self.model:
+            return "AI service is not properly initialized."
+
+        prompt = f"""
+        Analyze the sentiment of the following text and categorize it as POSITIVE, NEGATIVE, or NEUTRAL. 
+        Also provide a confidence score between 0 and 1.
+        Return the result in this format: SENTIMENT|SCORE
+        
+        Text to analyze: {text}
+        """
+
+        try:
+            response = self.model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            print(f"Error analyzing sentiment: {e}")
+            return "NEUTRAL|0.0"
+
+    async def summarize_text(self, text):
+        """
+        Generate a concise summary of the given text
+        """
+        if not self.model:
+            return "AI service is not properly initialized."
+
+        prompt = f"""
+        Please provide a concise summary of the following text in 2-3 sentences:
+
+        {text}
+        """
+
+        try:
+            response = self.model.generate_content(prompt)
+            return response.text
+        except Exception as e:
+            print(f"Error generating summary: {e}")
+            return f"Error generating summary: {str(e)}"

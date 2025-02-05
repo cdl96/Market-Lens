@@ -6,6 +6,9 @@ from app.main.forms import EditProfileForm
 from app.models import User
 from app.main import main  
 from app.models import Message
+from app.services.ai_service import AIService
+
+ai_service = AIService()
 
 @main.route('/')
 def home():
@@ -109,6 +112,54 @@ def send_message():
         'sender_id': message.sender_id,
         'timestamp': message.timestamp.isoformat()
     })
+
+@main.route('/api/ai/chat', methods=['POST'])
+@login_required
+def chat_with_ai():
+    data = request.get_json()
+    if not data or 'message' not in data:
+        return jsonify({'error': 'Missing message'}), 400
+
+    user_message = data['message']
+    
+    # Save user message
+    user_msg = Message(
+        sender_id=current_user.id,
+        receiver_id=ai_service.ai_user.id,
+        content=user_message
+    )
+    db.session.add(user_msg)
+    db.session.commit()
+
+    # Get AI response
+    ai_message = ai_service.process_message(user_message, current_user.id)
+    
+    if ai_message:
+        return jsonify({
+            'id': ai_message.id,
+            'content': ai_message.content,
+            'sender_id': ai_message.sender_id,
+            'timestamp': ai_message.timestamp.isoformat(),
+            'is_ai': True
+        })
+    else:
+        return jsonify({'error': 'Failed to get AI response'}), 500
+
+@main.route('/api/ai/messages', methods=['GET'])
+@login_required
+def get_ai_messages():
+    messages = Message.query.filter(
+        ((Message.sender_id == current_user.id) & (Message.receiver_id == ai_service.ai_user.id)) |
+        ((Message.sender_id == ai_service.ai_user.id) & (Message.receiver_id == current_user.id))
+    ).order_by(Message.timestamp.asc()).all()
+    
+    return jsonify([{
+        'id': msg.id,
+        'content': msg.content,
+        'sender_id': msg.sender_id,
+        'timestamp': msg.timestamp.isoformat(),
+        'is_ai': msg.is_ai_message
+    } for msg in messages])
 
 @main.route('/profile')
 @login_required

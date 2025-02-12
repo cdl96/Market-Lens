@@ -9,11 +9,11 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     __tablename__ = 'users' 
     
-    id = db.Column(db.Integer, primary_key=True)
+    username_ID = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(60), nullable=False)
-    status = db.Column(db.String(20), default='offline')  # 'online', 'offline', 'away', 
+    # status = db.Column(db.String(20), default='offline')  # 'online', 'offline', 'away', 
     last_login = db.Column(db.DateTime, default=datetime.utcnow)
 
     def set_password(self, password):
@@ -29,18 +29,18 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
-class Message(db.Model):
-    __tablename__ = 'messages'
+# class Message(db.Model):
+#     __tablename__ = 'messages'
     
-    id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    receiver_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    read = db.Column(db.Boolean, default=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+#     receiver_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+#     content = db.Column(db.Text, nullable=False)
+#     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+#     read = db.Column(db.Boolean, default=False)
 
-    sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')
-    receiver = db.relationship('User', foreign_keys=[receiver_id], backref='received_messages')
+#     sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')
+#     receiver = db.relationship('User', foreign_keys=[receiver_id], backref='received_messages')
 
 
 

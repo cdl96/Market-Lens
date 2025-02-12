@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+
+<!-- Company Tabs -->
+<div class="stock-tabs">
+    <div class="tab active">Microsoft</div>
+    <div class="tab">Starbucks</div>
+    <div class="tab">Tesla</div>
+    <div class="tab-add" title="Add new company">+</div>
+</div>
+
 <div class="dashboard-container">
     <!-- Market Summary -->
     <div class="market-summary">
@@ -22,14 +31,6 @@
         </div>
     </div>
 
-    <!-- Company Tabs -->
-    <div class="stock-tabs">
-        <div class="tab active">Microsoft</div>
-        <div class="tab">Starbucks</div>
-        <div class="tab">Tesla</div>
-        <div class="tab-add" title="Add new company">+</div>
-    </div>
-
     <!-- Main Content Area -->
     <div class="dashboard-content">
         <!-- News Feed Section -->
@@ -39,11 +40,6 @@
             <div class="news-feed" id="twitter-feed">
                 <div class="feed-header">
                     <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" class="feed-logo">
-                    <div class="feed-tabs">
-                        <span class="feed-tab active">Top</span>
-                        <span class="feed-tab">Popular</span>
-                        <span class="feed-tab">Latest</span>
-                    </div>
                     <div class="menu-icon">☰</div>
                 </div>
                 <div class="feed-content">
@@ -56,11 +52,6 @@
             <div class="news-feed" id="yahoo-feed">
                 <div class="feed-header">
                     <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
-                    <div class="feed-tabs">
-                        <span class="feed-tab active">Top</span>
-                        <span class="feed-tab">Popular</span>
-                        <span class="feed-tab">Latest</span>
-                    </div>
                     <div class="menu-icon">☰</div>
                 </div>
                 <div class="feed-content">
@@ -69,17 +60,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- Sentiment Analysis Section -->
-        <div class="sentiment-container">
-            <h3>Traders' Sentiment</h3>
-            <div class="sentiment-chart">
-                <canvas id="sentimentPieChart"></canvas>
-            </div>
-        </div>
     </div>
 </div>
-{% include 'components/chat_popup.html' %}
+<!-- {% include 'components/chat_popup.html' %} -->
 <style>
 .dashboard-container {
     padding: 20px;

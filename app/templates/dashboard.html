@@ -3,20 +3,183 @@
 
 <!-- Company Tabs -->
 <div class="stock-tabs">
-    <div class="tab active">Microsoft</div>
-    <div class="tab">Starbucks</div>
-    <div class="tab">Tesla</div>
+    <div class="tab active" onclick="openTab(event, 'tab1')">Microsoft</div>
+    <div class="tab" onclick="openTab(event, 'tab2')">Starbucks</div>
+    <div class="tab" onclick="openTab(event, 'tab3')">Tesla</div>
     <div class="tab-add" title="Add new company">+</div>
 </div>
 
-<div class="dashboard-container">
+
+<!-- Tab Content -->
+<div id="tab1" class="tab-content active">
+    <div class="dashboard-container">
+        <!-- Market Summary -->
+        <div class="market-summary">
+            <div class="summary-card">
+                <h2>Market Overview - MSFT</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Stock Price</span>
+                        <span class="value">715</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Trading Volume</span>
+                        <span class="value">2.3B</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Volatility Index</span>
+                        <span class="value">15.2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="news-container">
+
+                <!-- Twitter Feed -->
+                <div class="news-feed" id="twitter-feed">
+                    <div class="feed-header">
+                        <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" class="feed-logo">
+                        <div class="menu-icon">☰</div>
+                    </div>
+                    <div class="feed-content">
+                        <!-- Placeholder for Twitter content -->
+                        <div class="news-placeholder"></div>
+                    </div>
+                </div>
+
+                <!-- Yahoo Finance Feed -->
+                <div class="news-feed" id="yahoo-feed">
+                    <div class="feed-header">
+                        <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
+                        <div class="menu-icon">☰</div>
+                    </div>
+                    <div class="feed-content">
+                        <!-- Placeholder for Yahoo content -->
+                        <div class="news-placeholder"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab2" class="tab-content">
+    <div class="dashboard-container">
+        <!-- Market Summary -->
+        <div class="market-summary">
+            <div class="summary-card">
+                <h2>Market Overview - SBUX</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Stock Price</span>
+                        <span class="value">113.4</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Trading Volume</span>
+                        <span class="value">1.5B</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Volatility Index</span>
+                        <span class="value">15.2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="news-container">
+
+                <!-- Twitter Feed -->
+                <div class="news-feed" id="twitter-feed">
+                    <div class="feed-header">
+                        <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" class="feed-logo">
+                        <div class="menu-icon">☰</div>
+                    </div>
+                    <div class="feed-content">
+                        <!-- Placeholder for Twitter content -->
+                        <div class="news-placeholder"></div>
+                    </div>
+                </div>
+
+                <!-- Yahoo Finance Feed -->
+                <div class="news-feed" id="yahoo-feed">
+                    <div class="feed-header">
+                        <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
+                        <div class="menu-icon">☰</div>
+                    </div>
+                    <div class="feed-content">
+                        <!-- Placeholder for Yahoo content -->
+                        <div class="news-placeholder"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab3" class="tab-content">
+    <div class="dashboard-container">
+        <!-- Market Summary -->
+        <div class="market-summary">
+            <div class="summary-card">
+                <h2>Market Overview - TSLA</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Stock Price</span>
+                        <span class="value">604</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Trading Volume</span>
+                        <span class="value">2.3B</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Volatility Index</span>
+                        <span class="value">15.2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="news-container">
+
+                <!-- Twitter Feed -->
+                <div class="news-feed" id="twitter-feed">
+                    <div class="feed-header">
+                        <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" class="feed-logo">
+                        <div class="menu-icon">☰</div>
+                    </div>
+                    <div class="feed-content">
+                        <!-- Placeholder for Twitter content -->
+                        <div class="news-placeholder"></div>
+                    </div>
+                </div>
+
+                <!-- Yahoo Finance Feed -->
+                <div class="news-feed" id="yahoo-feed">
+                    <div class="feed-header">
+                        <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
+                        <div class="menu-icon">☰</div>
+                    </div>
+                    <div class="feed-content">
+                        <!-- Placeholder for Yahoo content -->
+                        <div class="news-placeholder"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Market Summary -->
-    <div class="market-summary">
+    <!-- <div class="market-summary">
         <div class="summary-card">
             <h2>Market Overview</h2>
             <div class="summary-grid">
                 <div class="summary-item">
-                    <span class="label">Market Status</span>
+                    <span class="label">Stock Price</span>
                     <span class="value">Open</span>
                 </div>
                 <div class="summary-item">
@@ -29,37 +192,36 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Main Content Area -->
-    <div class="dashboard-content">
-        <!-- News Feed Section -->
-        <div class="news-container">
+<!-- Main Content Area -->
+<div class="dashboard-content">
+    <div class="news-container">
 
-            <!-- Twitter Feed -->
-            <div class="news-feed" id="twitter-feed">
-                <div class="feed-header">
-                    <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" class="feed-logo">
-                    <div class="menu-icon">☰</div>
-                </div>
-                <div class="feed-content">
-                    <!-- Placeholder for Twitter content -->
-                    <div class="news-placeholder"></div>
-                </div>
+        <!-- Twitter Feed -->
+        <div class="news-feed" id="twitter-feed">
+            <div class="feed-header">
+                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter" class="feed-logo">
+                <div class="menu-icon">☰</div>
             </div>
-
-            <!-- Yahoo Finance Feed -->
-            <div class="news-feed" id="yahoo-feed">
-                <div class="feed-header">
-                    <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
-                    <div class="menu-icon">☰</div>
-                </div>
-                <div class="feed-content">
-                    <!-- Placeholder for Yahoo content -->
-                    <div class="news-placeholder"></div>
-                </div>
+            <div class="feed-content">
+                <!-- Placeholder for Twitter content -->
+                <div class="news-placeholder"></div>
             </div>
         </div>
+
+        <!-- Yahoo Finance Feed -->
+        <div class="news-feed" id="yahoo-feed">
+            <div class="feed-header">
+                <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
+                <div class="menu-icon">☰</div>
+            </div>
+            <div class="feed-content">
+                <!-- Placeholder for Yahoo content -->
+                <div class="news-placeholder"></div>
+            </div>
+        </div>
+
     </div>
 </div>
 <!-- {% include 'components/chat_popup.html' %} -->
@@ -139,6 +301,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Make sure tab content is hidden initially, except for the active tab */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Styling for the active tab */
+.tab.active {
+    background-color: #007bff;
+    color: white;
 }
 
 .dashboard-content {
@@ -261,6 +438,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Drag and drop functionality
 let draggedItem = null;
+
+function openTab(event, tabName) {
+    // Hide all tab content
+    const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove the "active" class from all tab buttons
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show the clicked tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add the "active" class to the clicked tab
+            event.currentTarget.classList.add('active');
+}
 
 function handleDragStart(e) {
     draggedItem = this;

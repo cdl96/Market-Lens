@@ -5,7 +5,7 @@ from app import db
 from app.main.forms import EditProfileForm
 from app.models import User
 from app.main import main  
-from app.models import Message
+# from app.models import Message
 from app.services.ai_service import AIService
 
 

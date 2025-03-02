@@ -3,7 +3,7 @@ from flask import jsonify, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user, login_user, logout_user
 from app import db
 from app.main.forms import EditProfileForm
-from app.models import User
+from app.models import User, Stock, Articles, WatchList
 from app.main import main  
 # from app.models import Message
 from app.services.ai_service import AIService
@@ -20,7 +20,11 @@ def home():
 @main.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', title='Dashboard')
+    stocks = Stock.query.all()
+    watchlists = WatchList.query.all()
+    print("Watchlists: ", watchlists)
+    print("Stocks: ", stocks)
+    return render_template('dashboard.html', title='Dashboard', stocks = stocks, watchlists = watchlists)
 
 # @main.route('/api/users', methods=['GET'])
 # @login_required

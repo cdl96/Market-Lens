@@ -41,6 +41,35 @@ class User(db.Model, UserMixin):
 #     sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')
 #     receiver = db.relationship('User', foreign_keys=[receiver_id], backref='received_messages')
 
+class Stock(db.Model):
+    __tablename__ = 'stocks'
+    stock_time = db.Column(db.DateTime, default=datetime.utcnow, primary_key=True)
+    ticker = db.Column(db.String(20), primary_key=True)
+    company_name = db.Column(db.String(120), unique=True, nullable=False)
+    current_price = db.Column(db.Float, nullable=False)
+    volume = db.Column(db.Float, nullable=False)
+    day_low = db.Column(db.Float, nullable=False)
+    day_high = db.Column(db.Float, nullable=False)
+    year_low = db.Column(db.Float, nullable=False)
+    year_high = db.Column(db.Float, nullable=False)
+
+class WatchList(db.Model):
+    __tablename__ = "watchlists"
+    watchlist_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # Foreign key to users table
+    ticker = db.Column(db.String(20), nullable=False)  # Ticker column
+    added_date = db.Column(db.DateTime, default=datetime.utcnow)  # Date added, default is current time
+    # Define the relationship to the User model (if necessary)
+    user = db.relationship('User', backref=db.backref('watchlists'))
+
+    def __repr__(self):
+        return f'<Watchlist {self.watchlist_id} - {self.ticker}>'
 
 
-
+class Articles(db.Model):
+    __tablename__ = "articles"
+    article_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), unique=True, nullable=False)
+    source = db.Column(db.String(20), unique=True, nullable=False)
+    url = db.Column(db.String(20), unique=True, nullable=False)
+    article_date = db.Column(db.DateTime, default=datetime.utcnow)

@@ -3,21 +3,20 @@
 
 <!-- Company Tabs -->
 <div class="stock-tabs">
-    {% for watchlist in watchlists %}
+    <!-- {% for watchlist in watchlists %}
         <div class="tab {% if loop.first %}active{% endif %}" onclick="openTab(event, 'tab{{ watchlist.id }}')">
             {{watchlist.ticker}}
         </div>
     {% endfor %}
-    <div class="tab-add" title="Add new company">+</div>
-    <!-- <div class="tab active" onclick="openTab(event, 'tab1')">Microsoft</div>
+    <div class="tab-add" title="Add new company">+</div> -->
+    <div class="tab" onclick="openTab(event, 'tab1')">Microsoft</div>
     <div class="tab" onclick="openTab(event, 'tab2')">Starbucks</div>
     <div class="tab" onclick="openTab(event, 'tab3')">Tesla</div>
-    <div class="tab-add" title="Add new company">+</div> -->
+    <div class="tab-add" title="Add new company">+</div>
 </div>
-{% for watchlist in watchlists %}
+<!-- {% for watchlist in watchlists %}
 <div id="tab{{ watchlist.id }}" class="tab-content {% if loop.first %}active{% endif %}">
     <div class="dashboard-container">
-        <!-- Market Summary -->
         <div class="market-summary">
             <div class="summary-card">
                 {% for stock in stocks %}
@@ -49,14 +48,14 @@
         </div>
     </div>
 </div>
-{% endfor %}
+{% endfor %} -->
 
 
 <!-- Tab Content -->
-<!-- <div id="tab1" class="tab-content active">
-    <div class="dashboard-container"> -->
+<div id="tab1" class="tab-content">
+    <div class="dashboard-container">
         <!-- Market Summary -->
-        <!-- <div class="market-summary">
+        <div class="market-summary">
             <div class="summary-card">
                 {% for stock in stocks %}
                 {% if stock.ticker == 'MSFT' %}
@@ -84,9 +83,9 @@
                 {% endfor %}
             </div>
             
-        </div> -->
+        </div>
         <!-- Stocks Section -->
-    <!-- <div class="section">
+    <div class="section">
         <h2>Stocks</h2>
         <ul>
             {% for stock in stocks %}
@@ -112,40 +111,73 @@
             {% endfor %}
         </ul>
     </div>
-</div> -->
+</div>
+</div>
 
-<!-- <div id="tab2" class="tab-content">
-    <div class="dashboard-container"> -->
+<div id="tab2" class="tab-content">
+    <div class="dashboard-container">
         <!-- Market Summary -->
-        <!-- <div class="market-summary">
+        <div class="market-summary">
             <div class="summary-card">
-                <h2>Market Overview - SBUX</h2>
+                {% for stock in stocks %}
+                {% if stock.ticker == 'MSFT' %}
+                <h2>Market Overview - MSFT
+                    {{stock.company_name}}</h2>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <span class="label">Stock Current Price</span>
-                        <span class="value">$113.00</span>
+                        <span class="label">Stock</span>
+                        <span class="value">{{stock.current_price}}</span>
                     </div>
                     <div class="summary-item">
                         <span class="label">Day Range</span>
-                        <span class="value">111.53 - 113.40</span>
+                        <span class="value">{{stock.day_low}} - {{stock.day_high}}</span>
                     </div>
                     <div class="summary-item">
                         <span class="label">52 Week range</span>
-                        <span class="value">71.55 - 113.40</span>
+                        <span class="value">{{stock.year_low}} - {{stock.year_high}}</span>
                     </div>
                     <div class="summary-item">
                         <span class="label">Volume</span>
-                        <span class="value">10M</span>
+                        <span class="value">23.9M/ {{stock.volume/1000000}}M</span>
                     </div>
                 </div>
+                {% endif %}
+                {% endfor %}
             </div>
+            
         </div>
+        <!-- Stocks Section -->
+    <div class="section">
+        <h2>Stocks</h2>
+        <ul>
+            {% for stock in stocks %}
+                <li class="stock-item">
+                    <strong>{{ stock.company_name }}</strong> ({{ stock.ticker }}) - ${{ stock.current_price }}
+                    <br>
+                    Volume: {{ stock.volume }} | Day Low: ${{ stock.day_low }} | Day High: ${{ stock.day_high }}
+                </li>
+            {% else %}
+                <li>No stocks available</li>
+            {% endfor %}
+        </ul>
     </div>
-</div> -->
-<!-- <div id="tab3" class="tab-content">
-    <div class="dashboard-container"> -->
+    <div class="section">
+        <h2>Watchlists</h2>
+        <ul>
+            {% for watchlist in watchlists %}
+                <li class="watchlist">
+                    <strong>{{ watchlist.ticker }}</strong> ({{ watchlist.added_date }})
+                </li>
+            {% else %}
+                <li>No stocks available</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div id="tab3" class="tab-content">
+    <div class="dashboard-container">
         <!-- Market Summary -->
-        <!-- <div class="market-summary">
+        <div class="market-summary">
             <div class="summary-card">
                 <h2>Market Overview - TSLA</h2>
                 <div class="summary-grid">
@@ -169,7 +201,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
     <!-- Market Summary -->
     <!-- <div class="market-summary">
         <div class="summary-card">
@@ -213,15 +245,15 @@
                 <img src="{{ url_for('static', filename='images/yahoo.png') }}" alt="Yahoo Finance" class="feed-logo">
                 <div class="menu-icon">☰</div>
             </div>
-            <div class="feed-content">
-                 Placeholder for Yahoo content -->
+            <div class="feed-content"> -->
+                 <!-- Placeholder for Yahoo content -->
                 <!-- <div class="news-placeholder"></div>
             </div>
         </div> -->
 
-    <!-- </div> -->
-<!-- </div> -->
-<!-- {% include 'components/chat_popup.html' %} -->
+    </div>
+</div>
+{% include 'components/chat_popup.html' %}
 <style>
 .dashboard-container {
     padding: 20px;
@@ -458,6 +490,7 @@ function openTab(event, tabName) {
     // Hide all tab contents
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => {
+        console.log("Hidden");
         content.classList.remove('active');  // Hide all content
     });
 
@@ -470,7 +503,10 @@ function openTab(event, tabName) {
     // Show the clicked tab's content
     const targetTab = document.getElementById(tabName);
     if (targetTab) {
+        console.log(`Showing content for tab: ${tabName}`);
+        console.log(targetTab);
         targetTab.classList.add('active');  // Add active class to clicked tab content
+        
     }
 
     // Add the "active" class to the clicked tab

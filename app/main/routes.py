@@ -22,9 +22,10 @@ def home():
 def dashboard():
     stocks = Stock.query.all()
     watchlists = WatchList.query.all()
+    articles = Articles.query.all()
     print("Watchlists: ", watchlists)
     print("Stocks: ", stocks)
-    return render_template('dashboard.html', title='Dashboard', stocks = stocks, watchlists = watchlists)
+    return render_template('dashboard.html', title='Dashboard', stocks = stocks, watchlists = watchlists, articles = articles)
 
 # @main.route('/api/users', methods=['GET'])
 # @login_required

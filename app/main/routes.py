@@ -23,9 +23,12 @@ def dashboard():
     stocks = Stock.query.all()
     watchlists = WatchList.query.all()
     articles = Articles.query.all()
+    #Create a dictionary for quick lookup: {ticker: stock}
+    stocks_dict = {stock.ticker: stock for stock in stocks}
     print("Watchlists: ", watchlists)
     print("Stocks: ", stocks)
-    return render_template('dashboard.html', title='Dashboard', stocks = stocks, watchlists = watchlists, articles = articles)
+    print(stocks_dict)
+    return render_template('dashboard.html', title='Dashboard', stocks = stocks, stocks_dict=stocks_dict, watchlists = watchlists, articles = articles)
 
 # @main.route('/api/users', methods=['GET'])
 # @login_required
